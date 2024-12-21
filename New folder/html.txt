@@ -1,0 +1,30 @@
+<div class="container mx-auto mt-8">
+    <div class="flex justify-center mb-4">
+      <button (click)="previousMonth()">Previous</button>
+      <h2>{{ currentMonth }}</h2>
+      <button (click)="nextMonth()">Next</button>
+      <button (click)="goToToday()">Today</button>
+    </div>
+    <table class="border border-black">
+      <thead>
+        <tr>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody>
+ 
+        <tr *ngFor="let week of calendarData">
+          <ng-container *ngFor="let day of week">
+            <td [class.other-month]="day.otherMonth" [class.current-day]="day.date === currentDate.getDate() && !day.otherMonth">{{ day.date }}</td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

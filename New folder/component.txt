@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import { CalendarDataService } from '../service/calendar-data.service';
+
+@Component({
+  selector: 'app-calendar',
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.scss']
+})
+export class CalendarComponent implements OnInit {
+  currentMonth!: string;
+  calendarData!: any[];
+  currentDate!: Date;
+  constructor(private calendarDataService: CalendarDataService) { }
+
+  ngOnInit(): void {
+    // Initialize the current month
+    this.currentMonth = this.calendarDataService.getCurrentMonth();
+    this.calendarData = this.calendarDataService.generateCalendar();
+    this.currentDate = new Date();
+
+  }
+
+  previousMonth(): void {
+    this.calendarDataService.getPreviousMonth();
+    this.currentMonth = this.calendarDataService.getCurrentMonth();
+    this.calendarData = this.calendarDataService.generateCalendar();
+  }
+
+  nextMonth(): void {
+    this.calendarDataService.getNextMonth();
+    this.currentMonth = this.calendarDataService.getCurrentMonth();
+    this.calendarData = this.calendarDataService.generateCalendar();
+  }
+
+  goToToday(): void {
+    this.calendarDataService.resetToToday();
+    this.currentMonth = this.calendarDataService.getCurrentMonth();
+    this.calendarData = this.calendarDataService.generateCalendar();
+  }
+}
